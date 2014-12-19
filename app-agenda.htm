@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js">
+    </script>
+	
+			<script>
+
+			var listaViaggio = angular.module('agenda',[]);
+			listaViaggio.controller('ListCtrl',function ListCtrl($scope) {
+				$scope.lista = [];
+				$scope.prova = '';
+				$scope.aggiungi = function() 
+					{ 
+						$scope.lista.push({ // aggiungi un elemento alla lista
+						
+						'nome':document.getElementById("input_nome").value,
+						'aggiunto':false,
+						});
+					};
+				$scope.rimuovi = function(elemento) // rimuovi l'elemento dalla lista
+					{
+						var index = $scope.lista.indexOf(elemento);
+						debugger;
+						if(index != -1)
+						{
+						$scope.lista.splice(index,1);
+						}
+					};
+				$scope.provaIns = function() 
+					{ 
+						$scope.prova = 'testo di prova';
+					};
+
+				
+			
+			});
+
+	
+		</script>
+		
+		
+  </head>
+	<body ng-app="agenda">
+	
+	<div ng-controller="ListCtrl">
+		{{prova}}
+		<button ng-click="provaIns()">Prova Ins</button>
+	</div>
+	
+	
+		<div id="listaApp">
+			<div ng-controller="ListCtrl">
+			
+			<ul>
+			
+				<li ng-repeat="elemento in lista"> 
+					<input type="checkbox" ng-model="elemento.aggiunto" />				
+						
+						<span ng-switch="elemento.aggiunto">
+							<span ng-switch-when="true" style="text-decoration:line-through;"> {{ elemento.nome }} </span>
+							<span ng-switch-when="false" > {{ elemento.nome }}  </span>
+						</span>
+						
+						<button ng-click="rimuovi(elemento)">Rimuovi</button>
+				</li>
+			
+			</ul>
+			<input type="text" id="input_nome"/><button ng-click="aggiungi()">Aggiungi</button>
+			</div>
+		
+		</div>
+
+
+	
+	</body>
+</html>

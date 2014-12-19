@@ -1,0 +1,51 @@
+<html ng-app>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"> </script>
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+
+		<script>
+		// definisco il controller e metto l'array dentro lo 'scope'
+		function mioController($scope)
+		{
+		
+			$scope.funz = function()
+			{
+				var ore = $('#ore').val();  //jquery
+				alert(ore);
+			};
+		
+			$scope.customers = [ 
+			{ name : 'fra', city:'senigallia'},
+			{ name : 'alfredo', city:'roma'},
+			{ name : 'silvio', city:'bari'}
+			];
+		
+		}
+	
+	</script>
+	
+  </head>
+  <body>
+  
+  	<div class="container" ng-controller="mioController"> <!-- faccio il bind con il controller - -->
+	
+	<h3>Aggiungo un semplice controller</h3>
+	
+		<ul>
+		
+			<li ng-repeat="cust in customers"> {{ cust.name }} </li>
+		
+		</ul>
+	
+
+	
+	<input type="text" name="abc" id="ore"></input>
+	<button ng-click="funz()">send</button>
+
+
+	</div>  
+
+  
+
+  </body>
+</html>

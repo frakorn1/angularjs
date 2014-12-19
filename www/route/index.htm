@@ -1,0 +1,65 @@
+
+<html ng-app="sampleApp">
+<head>
+    <title>AngularJS Routes example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.min.js"></script>
+</head>
+
+<body ng-controller="mainPageController">
+
+<h2> {{ messageHome }} </h2>
+
+<a href="#/route/1">Route 1</a><br/> <!-- occhio al link, deve essere scritto con lo # iniziale -->
+<a href="#/route/2">Route 2</a><br/>
+<a href="#/route/4">Route x</a><br/>
+
+
+<div ng-view></div>
+
+<script>
+    var module = angular.module("sampleApp", ['ngRoute']); // step 1: creo il modulo
+
+    module.config(['$routeProvider',  // step 2: creo le "rotte"
+        function($routeProvider) {
+            $routeProvider.
+                when('/route/1', {
+                    templateUrl: '1.htm',
+                    controller: 'RouteController1'
+                }).
+                when('/route/2', {
+                    templateUrl: '2.htm',
+                    controller: 'RouteController2'
+                }).
+                when('/route/:ID', {
+                    templateUrl: 'numero_qualunque.htm',
+                    controller: 'RouteControllerX'
+                }).
+                otherwise({
+                    redirectTo: '/'
+                });
+        }]);
+
+    module.controller("mainPageController", function($scope) {  // step 3: creo i controller
+	$scope.messageHome = "Benvenuto nella home page";
+	 })
+	
+    module.controller("RouteController1", function($scope) {  // step 3: creo i controller
+	$scope.message1 = "messaggio 1";
+    })
+	
+    module.controller("RouteController2", function($scope) {  // step 3: creo i controller
+	$scope.message2 = "messaggio 2";
+    })
+	
+    module.controller("RouteControllerX", function($scope) {  // step 3: creo i controller
+	$scope.message3 = "messaggio X";
+    })
+	
+
+   
+	
+</script>
+
+</body>
+</html>

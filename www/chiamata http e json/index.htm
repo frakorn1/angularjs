@@ -1,0 +1,60 @@
+<html ng-app>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js">
+    </script>
+  </head>
+  <body>
+  
+
+<div ng-controller="customersController"> 
+
+  <div>
+    <label>Aggiungi Utenti</label><br><br>
+    <div>
+        Nome: <input type="text" ng-model="utente.Name">
+        Citta: <input type="text" ng-model="utente.City">
+        Stato: <input type="text" ng-model="utente.Country">
+        <button type="button" ng-click="addUsers()">Add</button>
+		<button type="button" ng-click="clear()">Clear</button>
+    </div>
+
+</div>
+<hr>
+<ul>
+  <li ng-repeat="utente in utenti">
+    {{utente.Name}} - {{utente.City}} - {{utente.Country}}
+	<button ng-click="rimuovi(utente)">Rimuovi</button>
+  </li>
+</ul>
+
+</div>
+
+<script>
+function customersController($scope,$http) {
+    $http.get("file.php")
+    .success(function(response) { $scope.utenti = response; });
+	
+	 $scope.addUsers = function() {
+        $scope.utenti.push($scope.utente);
+    };
+	
+	 $scope.clear = function() {
+        $scope.utenti = {};
+    };
+	
+	$scope.rimuovi = function(utente) // rimuovi l'elemento dalla lista
+	{
+		var index = $scope.utenti.indexOf(utente);
+		if(index != -1)
+		{
+			$scope.utenti.splice(index,1);
+		}
+	};
+}
+</script>
+
+
+
+	</body>
+</html>
+
